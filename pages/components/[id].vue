@@ -2,16 +2,20 @@
   <div class="d-flex align-center flex-column">
     <h1>Component Vue page</h1>
     <!-- 50 horizontal width -->
-    <v-card elevation="0" width="50vw">
-      <v-row>
-        <v-col cols="12">
-          <C-Component v-if="component" :properties="properties" :component="component" :type="type" />
-        </v-col>
-      </v-row>
+    <v-card elevation="0" width="50vw" class="mx-auto pa-1 ma-2" variant="outlined">
+      <v-card-item>
+        <template v-slot:subtitle> </template>
+      </v-card-item>
+      <v-card-actions>
+        <v-row>
+          <v-col cols="12">
+            <CRender v-if="component" :properties="properties" :component="component" :type="type" />
+          </v-col>
+        </v-row>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
-
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
@@ -37,5 +41,4 @@ onBeforeMount(async () => {
   }
 });
 </script>
-
 <style scoped></style>

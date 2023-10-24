@@ -18,7 +18,10 @@
   },
   "dependencies": {
     "@mdi/font": "^7.3.67",
+    "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
+    "@pinia/nuxt": "^0.5.1",
     "clipboard": "^2.0.11",
+    "pinia": "^2.1.7",
     "prismjs": "^1.29.0",
     "sass": "^1.69.4",
     "vuetify": "^3.4.0-alpha.1"

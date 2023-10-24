@@ -19,7 +19,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const id = ref("");
+const id = ref("653675c6a8f0f9fe00b3e866");
 
 const goToComponent = () => {
   router.push(`/components/${id.value}`);
