@@ -12,10 +12,11 @@
           color="#1976d2"
           deletable-chips
           v-model="selectedItem.text"
+          hint="Escriba una opciopm y presione enter para agregarla"
           @keydown.enter="addNewItem"></v-combobox>
       </v-col>
       <v-col cols="5">
-        <v-text-field v-model="selectedItem.value" label="Valor" class="ml-2" @keydown.enter="addNewItem"></v-text-field>
+        <v-text-field v-model="selectedItem.value" label="Valor" class="ml-2" @keydown.enter="addNewItem" hint="Escriba un valor aquí"></v-text-field>
       </v-col>
       <v-col>
         <v-btn icon color="#1976d2" @click="addNewItem">
@@ -28,19 +29,17 @@
         <div class="chip-container">
           <v-chip-group v-for="(item, index) in items" :key="index" :value="item">
             <v-chip closable @click="editItem(index)" @click:close="removeItem(index)">
-              {{ item }}
-              <!--v-btn @click="editItem(index)">Editar</v-btn-->
+              {{ item.text }}
             </v-chip>
           </v-chip-group>
         </div>
-        {{ items }}
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script setup>
-import { defineProps, ref } from "vue";
+import { ref } from "vue";
 
 const props = defineProps({
   property: {
@@ -83,72 +82,6 @@ const editItem = (index) => {
 .chip-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px; /* Espacio entre los chips */
+  gap: 5px;
 }
 </style>
-
-<!--template>
-  <div>
-    <v-row justify="center">
-      <v-col cols="12">
-        <v-combobox
-          variant="outlined"
-          :items="items"
-          :label="field"
-          chips
-          color="#1976d2"
-          deletable-chips
-          @keydown.enter="addNewItem"
-          v-model="selectedItem"></v-combobox>
-      </v-col>      
-    </v-row>
-    <v-row v-if="items.length > 0" class="my-4">
-      <v-col cols="12">
-        <div class="chip-container">
-          <v-chip-group v-for="(item, index) in items" :key="index" :value="item">
-            <v-chip closable @click:close="removeItem(index)">{{ item }}</v-chip>
-          </v-chip-group>
-        </div>
-      </v-col>
-    </v-row>
-  </div>
-</template>
-
-<script setup>
-import { defineProps, ref } from "vue";
-
-const props = defineProps({
-  property: {
-    type: Array,
-    required: true,
-  },
-  field: {
-    type: String,
-    required: true,
-  },
-});
-
-const items = ref(props.property);
-const selectedItem = ref(null);
-
-const addNewItem = () => {
-  // agregar el valor de el v-text-field a el item seleccionado, no se puede agregar si value esta vacio
-  if (selectedItem.value) {
-    items.value.push(selectedItem.value);
-    selectedItem.value = null;
-  }
-};
-
-const removeItem = (index) => {
-  // remover el valor del item eliminado de el array
-  items.value.splice(index, 1);
-};
-</script>
-
-<style lang="scss" scoped>
-.chip-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px; /* Espacio entre los chips */
-}
-</style-->

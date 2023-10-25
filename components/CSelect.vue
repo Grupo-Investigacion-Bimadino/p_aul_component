@@ -1,9 +1,10 @@
 <template>
   <v-select
     v-model="component.properties.v_model"
+    :multiple="component.properties.multiple"
     :hint="component.properties.hint"
     :items="component.properties.items"
-    item-title="title"
+    item-title="text"
     item-value="value"
     :label="component.properties.label"
     :persistent-hint="component.properties.persistent_hint"></v-select>

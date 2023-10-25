@@ -3,8 +3,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["@mdi/font/css/materialdesignicons.min.css", "vuetify/lib/styles/main.sass"],
   modules: ["@pinia/nuxt"],
+  plugins: [{ src: "~/plugins/fontawesome.js", ssr: false }],
   build: {
-    transpile: ["vuetify"],
+    transpile: ["vuetify", "fontawesome"],
   },
   vite: {
     define: {
