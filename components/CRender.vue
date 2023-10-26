@@ -1,8 +1,8 @@
 <template>
-  <div class="btn-editor-container">
-    <component :is="dynamicRenderCOmponent(component.type)" :component="component" @mouseenter="onShowProperties" />
+  <div class="btn-editor-container" @mouseenter="onShowProperties" @mouseleave="isVisiblePanelButtons = false">
+    <component :is="dynamicRenderCOmponent(component.type)" :component="component" />
     <v-divider></v-divider>
-    <CPanelEditor :visiblePanelButtons="visiblePanelButtons" @onHidePanelButtons="hidePanelButtons" />
+    <CPanelEditor v-if="isVisiblePanelButtons" />
   </div>
 </template>
 <script setup>
@@ -12,7 +12,7 @@ import { usePropertiePanelStore } from "~/store/propertiePanel";
 
 const appStore = useAppStore();
 const propertiePanelStore = usePropertiePanelStore();
-const visiblePanelButtons = ref(false);
+const isVisiblePanelButtons = ref(false);
 
 const props = defineProps({
   component: {
@@ -23,11 +23,11 @@ const props = defineProps({
 
 const onShowProperties = () => {
   propertiePanelStore.setComponentTemp(props.component);
-  appStore.showPanelButtons();
+  isVisiblePanelButtons.value = true;
 };
 
-const hidePanelButtons = (status) => {
-  visiblePanelButtons = status;
+const hidePanelButtons = () => {
+  console.log(isVisiblePanelButtons.value);
 };
 
 const dynamicRenderCOmponent = (type) =>
