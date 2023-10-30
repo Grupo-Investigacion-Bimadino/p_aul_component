@@ -2,7 +2,6 @@
   <v-card>
     <v-tabs v-model="tab" centered>
       <v-tab value="tab-1"> Propiedades </v-tab>
-
       <v-tab value="tab-2"> Componentes </v-tab>
     </v-tabs>
 
@@ -14,14 +13,16 @@
               <v-list-item v-for="(property, propertyName) in component.properties" :key="propertyName">
                 <component
                   v-if="propertyName != 'data' && propertyName != 'v_model'"
-                  :is="getComponetByType(component.properties[propertyName])"
+                  :is="getComponetByType(component.properties[propertyName], propertyName)"
                   :label="propertyName"
                   v-model="component.properties[propertyName]"
                   :property="component.properties[propertyName]"
                   :field="propertyName"
                   variant="outlined"
                   color="primary"
-                  class="pa-1" />
+                  :v_model="component.properties['v_model']"
+                  class="pa-1"
+                  :component="component" />
                 <v-divider v-if="propertyName != 'data' && propertyName != 'v_model'" class="border-opacity-25"></v-divider>
               </v-list-item>
             </v-list>
@@ -50,8 +51,8 @@
           <v-card-text>
             <div class="d-flex flex-column align-left">
               <v-btn-toggle mandatory>
-                <!-- componente encargado de atregar un CSelect -->
                 <CBtnsBtnContent @onAddComponent="addComponent" />
+                <CBtnsBtCWidthComponent @onAddComponent="addComponent" />
               </v-btn-toggle>
             </div>
           </v-card-text>
@@ -61,7 +62,7 @@
   </v-card>
 </template>
 <script setup>
-import { PropertieArray } from "#components";
+import { PropertieArray, CWidthComponent, CBtnsBtCWidthComponent, CBtnsBtnContent, CRender, CUnitInputField } from "#components";
 import { usePropertiePanelStore } from "~/store/propertiePanel";
 
 import { ref, onMounted } from "vue";
@@ -87,9 +88,13 @@ onMounted(() => {
   });
 });
 
-const getComponetByType = (propertyValue) => {
+const getComponetByType = (propertyValue, propertyName) => {
   switch (typeof propertyValue) {
     case "string":
+      /*if (propertyName == "width") {
+        console.log("CWidthComponent");
+        return CUnitInputField;
+      } else */
       return "v-text-field";
     case "number":
       return "v-text-field";
@@ -103,11 +108,7 @@ const getComponetByType = (propertyValue) => {
 };
 
 const addComponent = (newComponent) => {
-  console.log("New component", newComponent);
-  // Agregar el nuevo componente al arreglo component.properties.components
   component.value.properties.components.push(newComponent);
-  console.log("component", component.value.properties.components);
-  //component.properties.components.push(newComponent);
 };
 </script>
 

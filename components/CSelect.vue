@@ -7,6 +7,7 @@
     item-title="text"
     item-value="value"
     :label="component.properties.label"
+    :variant="component.properties.variant"
     :persistent-hint="component.properties.persistent_hint"></v-select>
 </template>
 <script setup>

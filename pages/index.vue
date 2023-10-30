@@ -6,6 +6,7 @@
       <v-row>
         <v-col cols="12">
           <v-text-field label="Component ID" v-model="id" outlined dense class="mt-4"></v-text-field>
+          <br />65387d1bd99503cdb3d17687
         </v-col>
         <v-col cols="12">
           <v-btn color="primary" @click="goToComponent">Go to component</v-btn>

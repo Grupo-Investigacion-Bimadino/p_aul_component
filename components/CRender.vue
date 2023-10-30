@@ -1,16 +1,16 @@
 <template>
-  <div class="btn-editor-container" @mouseenter="onShowProperties" @mouseleave="isVisiblePanelButtons = false">
-    <component :is="dynamicRenderCOmponent(component.type)" :component="component" />
-    <v-divider></v-divider>
-    <CPanelEditor v-if="isVisiblePanelButtons" />
+  <div>
+    {{ component }}
+    <div v-if="component" class="btn-editor-container" @mouseenter="onShowProperties" @mouseleave="isVisiblePanelButtons = false">
+      <component :is="dynamicRenderCOmponent(component.type)" :component="component" class="ma-1 pa-1" />
+      <CPanelEditor v-if="isVisiblePanelButtons" />
+    </div>
   </div>
 </template>
 <script setup>
-import { CSelect, CContent, CDefault } from "#components";
-import { useAppStore } from "~/store/app";
+import { CSelect, CContent, CDefault, CWidthComponent } from "#components";
 import { usePropertiePanelStore } from "~/store/propertiePanel";
 
-const appStore = useAppStore();
 const propertiePanelStore = usePropertiePanelStore();
 const isVisiblePanelButtons = ref(false);
 
@@ -35,6 +35,7 @@ const dynamicRenderCOmponent = (type) =>
     CSelect,
     CDefault,
     CContent,
+    CWidthComponent,
   }[type]);
 </script>
 

@@ -6,8 +6,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
 const component = {
   name: "Componente Select",
   type: "CSelect",
@@ -19,6 +17,7 @@ const component = {
     persistent_hint: true,
     comments: [],
     v_model: "data",
+    variant: "outlined",
     data: {},
   },
   data: {},

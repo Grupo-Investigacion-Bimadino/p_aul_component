@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-card
+      :width="component.properties.width"
       :title="component.properties.title"
       :subtitle="component.properties.subtitle"
       :text="component.properties.text"

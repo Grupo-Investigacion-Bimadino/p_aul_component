@@ -1,44 +1,65 @@
 <template>
-  <div class="d-flex align-center flex-column">
+  <div class="d-flex align-center flex-column" v-if="component">
     <h1>Component Vue page</h1>
     <!-- 50 horizontal width -->
     <v-card elevation="0" width="50vw" class="mx-auto pa-1 ma-2" variant="outlined">
       <v-card-item>
-        <template v-slot:subtitle> </template>
+        <template v-slot:subtitle></template>
       </v-card-item>
       <v-card-actions>
         <v-row>
           <v-col cols="12">
-            <CRender v-if="component" :properties="properties" :component="component" :type="type" />
+            <CRender :component="component" />
           </v-col>
         </v-row>
       </v-card-actions>
+      <div v-if="component.properties">
+        {{ component.properties.width }}
+        <!--CUnitInputField v-if="component.properties" :tempWidth="component.properties.width" /-->
+        <CUnitInputField v-if="component.properties" :tempWidth="component.properties.width" @onChangeWidth="changeWidth" />
+      </div>
     </v-card>
   </div>
 </template>
+
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useComponentStore } from "~/store/component";
 
 const pathAPI = "http://localhost:4000/api/v1/components/";
 const route = useRoute();
 const id = route.params.id;
+const componentStore = useComponentStore();
 
-const component = ref(null);
-const properties = ref({});
-const type = ref(null);
+const component = ref({});
 
 onBeforeMount(async () => {
   try {
     const componentData = await fetch(`${pathAPI}${id}`).then((response) => response.json());
+
     if (componentData) {
-      component.value = componentData;
-      properties.value = componentData.properties;
-      type.value = componentData.type;
+      componentStore.addComponent(componentData);
+      const componentValue = componentStore.getComponentById(id);
+
+      if (componentValue) {
+        component.value = componentValue;
+        // component.value = computed(() => componentValue);
+      } else {
+        console.error(`No se encontró un componente con ID ${id}`);
+      }
+    } else {
+      console.error(`No se encontraron datos para el componente con ID ${id}`);
     }
   } catch (error) {
     console.error("Error al cargar los datos desde la API:", error);
   }
 });
+
+const changeWidth = (newWidth) => {
+  console.log("newWidth:", newWidth);
+  component.value.properties.width = newWidth;
+};
 </script>
+
 <style scoped></style>
