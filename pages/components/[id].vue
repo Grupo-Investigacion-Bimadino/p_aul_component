@@ -14,8 +14,6 @@
         </v-row>
       </v-card-actions>
       <div v-if="component.properties">
-        {{ component.properties.width }}
-        <!--CUnitInputField v-if="component.properties" :tempWidth="component.properties.width" /-->
         <CUnitInputField v-if="component.properties" :tempWidth="component.properties.width" @onChangeWidth="changeWidth" />
       </div>
     </v-card>
@@ -57,7 +55,6 @@ onBeforeMount(async () => {
 });
 
 const changeWidth = (newWidth) => {
-  console.log("newWidth:", newWidth);
   component.value.properties.width = newWidth;
 };
 </script>

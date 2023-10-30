@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ component }}
     <div v-if="component" class="btn-editor-container" @mouseenter="onShowProperties" @mouseleave="isVisiblePanelButtons = false">
       <component :is="dynamicRenderCOmponent(component.type)" :component="component" class="ma-1 pa-1" />
       <CPanelEditor v-if="isVisiblePanelButtons" />

@@ -1,6 +1,5 @@
 <template>
   <v-form>
-    {{ tempWidth }}
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -42,45 +41,29 @@ const tempWidth = ref(props.tempWidth);
 
 const emit = defineEmits();
 watch(tempWidth, (newTempWidth) => {
-  console.log("tempWidth:", newTempWidth);
   emit("onChangeWidth", tempWidth.value);
 });
 
 const currentUnit = ref("");
+const widthValue = ref("");
 const unitMenu = ref(false);
 
-const selectUnit = (unit) => {
-  // currentUnit.value = unit;
-  // unitMenu.value = false;
-  // updateWidth();
-};
-
 const updateWidth = () => {
-  // Construye el valor final con la unidad seleccionada
-  //const widthInteger = parseInt(widthValue.value);
-  //const formatedWidth = `${widthInteger}${currentUnit.value}`;
-  // Ahora puedes usar "width" en tu lógica o actualizar tu componente principal con el nuevo valor.
-  // widthValue.value = formatedWidth;
-  // console.log("Width:", props.width);
-  //props.width = formatedWidth;
-  // widthValue.value = formatedWidth;
+  const widthInteger = parseInt(widthValue.value);
+  const formatedWidth = `${widthInteger}${currentUnit.value}`;
+  tempWidth.value = formatedWidth;
 };
 
 watchEffect(() => {
-  /*  if (props.width) {
-    if (typeof props.width === "string") {
-      const width = props.width || "";
+  if (props.tempWidth) {
+    if (typeof props.tempWidth === "string") {
+      const width = props.tempWidth || "";
       const match = width.match(/^([\d.]+)(\D+)$/);
       if (match) {
         widthValue.value = match[1];
         currentUnit.value = match[2];
       }
     }
-  }*/
-});
-
-// Actualizar la propiedad del componente cuando cambie el valor o la unidad
-watchEffect(() => {
-  // props.component.properties.v_model = `${widthValue.value}${currentUnit.value}`;
+  }
 });
 </script>
