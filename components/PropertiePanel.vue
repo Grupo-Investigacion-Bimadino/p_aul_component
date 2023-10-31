@@ -11,18 +11,33 @@
           <v-card-text>
             <v-list :title="`Propiedades del componente ${component.name}`" :subtitle="`v ${component.version}`">
               <v-list-item v-for="(property, propertyName) in component.properties" :key="propertyName">
-                <component
-                  v-if="propertyName != 'data' && propertyName != 'v_model'"
-                  :is="getComponetByType(component.properties[propertyName], propertyName)"
-                  :label="propertyName"
-                  v-model="component.properties[propertyName]"
-                  :property="component.properties[propertyName]"
-                  :field="propertyName"
-                  variant="outlined"
-                  color="primary"
-                  :v_model="component.properties['v_model']"
-                  class="pa-1"
-                  :component="component" />
+                <div v-if="propertyName == 'width'">
+                  <CUnitInputField v-if="component.properties" :tempWidth="component.properties.width" @onChangeWidth="changeWidth" />
+                </div>
+                <div v-else-if="propertyName == 'data' || propertyName == 'v_model' || propertyName == 'components'">
+                  <v-text-field :model-value="component.properties[propertyName]" :label="propertyName" disabled></v-text-field>
+                </div>
+                <div v-else-if="propertyName == 'items' && typeof component.properties[propertyName] == 'object'">
+                  <PropertieArray :property="component.properties[propertyName]" :field="propertyName" />
+                </div>
+                <div v-else>
+                  <component
+                    :is="getComponetByType(component.properties[propertyName])"
+                    v-model="component.properties[propertyName]"
+                    :label="propertyName"
+                    variant="outlined"
+                    class="pa-1"></component>
+                  <!--component                    
+                    :is="getComponetByType(component.properties[propertyName])"
+                    :label="propertyName"
+                    :property="component.properties[propertyName]"
+                    :field="propertyName"
+                    variant="outlined"
+                    color="primary"
+                    :v_model="component.properties['v_model']"
+                    class="pa-1"
+                    :component="component" /-->
+                </div>
                 <v-divider v-if="propertyName != 'data' && propertyName != 'v_model'" class="border-opacity-25"></v-divider>
               </v-list-item>
             </v-list>
@@ -88,20 +103,14 @@ onMounted(() => {
   });
 });
 
-const getComponetByType = (propertyValue, propertyName) => {
+const getComponetByType = (propertyValue) => {
   switch (typeof propertyValue) {
     case "string":
-      /*if (propertyName == "width") {
-        console.log("CWidthComponent");
-        return CUnitInputField;
-      } else */
       return "v-text-field";
     case "number":
       return "v-text-field";
     case "boolean":
       return "v-switch";
-    case "object":
-      return PropertieArray;
     default:
       return "v-text-field";
   }
@@ -109,6 +118,10 @@ const getComponetByType = (propertyValue, propertyName) => {
 
 const addComponent = (newComponent) => {
   component.value.properties.components.push(newComponent);
+};
+
+const changeWidth = (newWidth) => {
+  component.value.properties.width = newWidth;
 };
 </script>
 

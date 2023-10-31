@@ -13,9 +13,9 @@
           </v-col>
         </v-row>
       </v-card-actions>
-      <div v-if="component.properties">
+      <!--div v-if="component.properties">
         <CUnitInputField v-if="component.properties" :tempWidth="component.properties.width" @onChangeWidth="changeWidth" />
-      </div>
+      </div-->
     </v-card>
   </div>
 </template>
