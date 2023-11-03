@@ -26,17 +26,7 @@
                     v-model="component.properties[propertyName]"
                     :label="propertyName"
                     variant="outlined"
-                    class="pa-1"></component>
-                  <!--component                    
-                    :is="getComponetByType(component.properties[propertyName])"
-                    :label="propertyName"
-                    :property="component.properties[propertyName]"
-                    :field="propertyName"
-                    variant="outlined"
-                    color="primary"
-                    :v_model="component.properties['v_model']"
-                    class="pa-1"
-                    :component="component" /-->
+                    class="pa-2"></component>
                 </div>
                 <v-divider v-if="propertyName != 'data' && propertyName != 'v_model'" class="border-opacity-25"></v-divider>
               </v-list-item>

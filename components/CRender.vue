@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="component" class="btn-editor-container" @mouseenter="onShowProperties" @mouseleave="isVisiblePanelButtons = false">
+    <div v-if="component" class="btn-editor-container" @mouseenter="onShowProperties" @mouseleave="isVisiblePanelButtons = false" v-bind="props">
       <component :is="dynamicRenderCOmponent(component.type)" :component="component" class="ma-1 pa-1" />
-      <CPanelEditor v-if="isVisiblePanelButtons" />
+      <CPanelEditor v-if="isVisiblePanelButtons" :component="component" />
     </div>
   </div>
 </template>
@@ -25,10 +25,6 @@ const onShowProperties = () => {
   isVisiblePanelButtons.value = true;
 };
 
-const hidePanelButtons = () => {
-  console.log(isVisiblePanelButtons.value);
-};
-
 const dynamicRenderCOmponent = (type) =>
   ({
     CSelect,
@@ -41,5 +37,10 @@ const dynamicRenderCOmponent = (type) =>
 <style>
 .btn-editor-container {
   position: relative;
+}
+
+.btn-editor-container:hover {
+  background-color: rgb(255, 255, 194, 0.1);
+  /* Agrega otros estilos de resaltado si es necesario */
 }
 </style>

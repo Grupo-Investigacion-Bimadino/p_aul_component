@@ -19,6 +19,10 @@ const props = defineProps({
     required: true,
   },
 });
+
+const updateComponent = (value) => {
+  console.log("value", value);
+};
 </script>
 
 <style scoped></style>

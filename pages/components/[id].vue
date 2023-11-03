@@ -1,7 +1,6 @@
 <template>
   <div class="d-flex align-center flex-column" v-if="component">
     <h1>Component Vue page</h1>
-    <!-- 50 horizontal width -->
     <v-card elevation="0" width="50vw" class="mx-auto pa-1 ma-2" variant="outlined">
       <v-card-item>
         <template v-slot:subtitle></template>
@@ -13,9 +12,6 @@
           </v-col>
         </v-row>
       </v-card-actions>
-      <!--div v-if="component.properties">
-        <CUnitInputField v-if="component.properties" :tempWidth="component.properties.width" @onChangeWidth="changeWidth" />
-      </div-->
     </v-card>
   </div>
 </template>
@@ -42,7 +38,6 @@ onBeforeMount(async () => {
 
       if (componentValue) {
         component.value = componentValue;
-        // component.value = computed(() => componentValue);
       } else {
         console.error(`No se encontró un componente con ID ${id}`);
       }

@@ -1,6 +1,6 @@
 <template>
   <div class="btn-editor ma-1 pa-2">
-    <v-btn color="grey-lighten-2" icon @click.stop="appStore.toggleShowProperties" class="elevation-0 rounded-lg" size="x-small" variant="outlined">
+    <v-btn color="grey-lighten-2" icon @click.stop="updatePropertiesOnCompoentPanel" class="elevation-0 rounded-lg" size="x-small" variant="outlined">
       <v-icon color="amber-darken-1">mdi-pencil</v-icon>
     </v-btn>
 
@@ -12,7 +12,22 @@
 
 <script setup>
 import { useAppStore } from "~/store/app";
+import { usePropertiePanelStore } from "~/store/propertiePanel";
+
 const appStore = useAppStore();
+const appPropertiePannel = usePropertiePanelStore();
+
+const props = defineProps({
+  component: {
+    type: Object,
+    required: true,
+  },
+});
+
+const updatePropertiesOnCompoentPanel = () => {
+  appPropertiePannel.setComponentTemp(props.component);
+  appStore.toggleShowProperties();
+};
 
 const saveChanges = async () => {};
 </script>

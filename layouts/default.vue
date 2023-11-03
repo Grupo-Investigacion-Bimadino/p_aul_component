@@ -15,6 +15,7 @@
       </v-container>
     </v-navigation-drawer>
     <v-main>
+      <CSpeechCommander />
       <slot />
     </v-main>
   </v-app>
